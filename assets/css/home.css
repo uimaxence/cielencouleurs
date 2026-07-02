@@ -1,0 +1,629 @@
+/* ============================================================
+   Ciel en Couleurs — Home page
+   ============================================================ */
+
+/* ---------- NAV (transparente sur le hero, ivoire au scroll) -------- */
+.nav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 100;
+  /* Par défaut : posée sur le hero → texte clair */
+  --nav-fg: #FBF8F4;
+  --nav-fg-dim: rgba(251, 248, 244, .78);
+  transition: background var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+.nav__inner {
+  position: relative;
+  z-index: 95; /* au-dessus du menu mobile (z-index 90) → la croix de fermeture reste cliquable */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: 1.1rem;
+}
+/* Au scroll : fond ivoire translucide → texte encre */
+.nav.is-scrolled {
+  --nav-fg: var(--c-encre);
+  --nav-fg-dim: var(--c-encre-70);
+  background: rgba(251, 248, 244, .85);
+  backdrop-filter: saturate(150%) blur(16px);
+  -webkit-backdrop-filter: saturate(150%) blur(16px);
+  box-shadow: 0 1px 0 var(--c-line-soft);
+}
+/* Menu mobile ouvert : toujours sur fond ivoire → texte encre */
+.nav.is-open { --nav-fg: var(--c-encre); --nav-fg-dim: var(--c-encre-70); }
+
+.brand { display: flex; flex-direction: column; line-height: 1; color: var(--nav-fg); transition: color var(--dur) var(--ease); }
+/* Logo (Mme Planner) : version détourée sur fond transparent */
+.brand__logo {
+  height: clamp(34px, 3.4vw, 44px);
+  width: auto; display: block;
+  transition: filter var(--dur) var(--ease);
+}
+/* Sur le hero (nav claire, menu fermé) : logo passé en blanc pour rester lisible sur la photo.
+   Au scroll (fond ivoire) ou menu ouvert : logo naturel (noir + trait rose). */
+.nav:not(.is-scrolled):not(.is-open) .brand__logo { filter: brightness(0) invert(1); }
+.brand__name {
+  font-family: var(--font-display);
+  font-size: 1.32rem;
+  letter-spacing: -.01em;
+}
+.brand__sub {
+  font-size: .62rem;
+  text-transform: uppercase;
+  letter-spacing: var(--ls-caps);
+  color: var(--nav-fg-dim);
+  margin-top: .35em;
+}
+/* Trait prisme sous le logo (apparition signature n°1) */
+.brand__prisme {
+  height: 2px; width: 46px; margin-top: .45em;
+  background: var(--prisme); border-radius: 2px;
+}
+
+.nav__links {
+  display: none;
+  align-items: center;
+  gap: 2.1rem;
+  list-style: none;
+}
+.nav__links a {
+  font-size: .8rem;
+  text-transform: uppercase;
+  letter-spacing: var(--ls-caps);
+  font-weight: 600;
+  color: var(--nav-fg-dim);
+  position: relative;
+  padding-block: .3em;
+  transition: color var(--dur) var(--ease);
+}
+.nav__links a:hover { color: var(--nav-fg); }
+/* Soulignement prisme sur nav active (apparition signature n°2) */
+.nav__links a[aria-current="page"] { color: var(--nav-fg); }
+.nav__links a[aria-current="page"]::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -2px;
+  height: 2px; background: var(--prisme); border-radius: 2px;
+}
+
+/* CTA nav : contour qui adopte la couleur du thème nav */
+.nav__cta {
+  display: none;
+  --btn-bg: transparent;
+  --btn-fg: var(--nav-fg);
+  border: 1px solid color-mix(in srgb, var(--nav-fg) 45%, transparent);
+  transition: color var(--dur) var(--ease), border-color var(--dur) var(--ease), background var(--dur) var(--ease);
+}
+.nav__cta:hover {
+  --btn-bg: var(--nav-fg);
+  --btn-fg: var(--c-encre);
+  box-shadow: none;
+}
+.nav.is-scrolled .nav__cta:hover { --btn-fg: var(--c-ivoire); }
+
+.burger {
+  display: inline-flex; flex-direction: column; gap: 5px;
+  background: none; border: 0; padding: .5rem; cursor: pointer;
+}
+.burger span {
+  width: 24px; height: 2px; background: var(--nav-fg); border-radius: 2px;
+  transition: transform .4s var(--ease), opacity .3s var(--ease), background var(--dur) var(--ease);
+}
+.nav.is-open .burger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav.is-open .burger span:nth-child(2) { opacity: 0; }
+.nav.is-open .burger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* Menu mobile plein écran.
+   height explicite (pas inset:0) car .nav.is-scrolled applique un backdrop-filter
+   qui fait de .nav le bloc conteneur des enfants position:fixed → inset:0 ne vaudrait
+   plus 100vh. On masque aussi par visibilité pour être robuste quelle que soit la géométrie. */
+.nav__mobile {
+  position: fixed; top: 0; left: 0; right: 0; height: 100dvh; z-index: 90;
+  background: var(--c-ivoire);
+  display: flex; flex-direction: column;
+  justify-content: center; gap: 1rem;
+  padding: var(--gutter);
+  transform: translateY(-100%);
+  opacity: 0; visibility: hidden; pointer-events: none;
+  transition: transform .55s var(--ease), opacity .4s var(--ease), visibility 0s linear .55s;
+}
+.nav.is-open .nav__mobile {
+  transform: none; opacity: 1; visibility: visible; pointer-events: auto;
+  transition: transform .55s var(--ease), opacity .4s var(--ease), visibility 0s;
+}
+.nav__mobile a:not(.btn) {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 8vw, 2.8rem);
+  color: var(--c-encre);
+}
+.nav__mobile .btn { align-self: flex-start; margin-top: 1rem; font-size: .95rem; }
+
+@media (min-width: 900px) {
+  .nav__links, .nav__cta { display: flex; }
+  .burger, .nav__mobile { display: none; }
+}
+
+/* ---------- HERO ------------------------------------------- */
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: flex-end;
+  color: var(--c-ivoire);
+  overflow: hidden;
+}
+/* Média : photo réelle du burst de fumée colorée (couple à droite, ciel à gauche) */
+.hero__media {
+  position: absolute; inset: 0; z-index: -2;
+  /* Mobile : on cadre vers la droite pour garder couple + fumée dans le champ */
+  background: #e7d3cf url("../img/opt/hero.webp") 74% 42% / cover no-repeat;
+  transform: scale(1.03);
+  animation: drift 30s var(--ease) infinite alternate;
+}
+@media (min-width: 760px) {
+  .hero__media { background-position: center 30%; }
+}
+@keyframes drift {
+  to { transform: scale(1.1) translate3d(-1.2%, -1.2%, 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero__media { animation: none; }
+}
+/* Voiles : haut (lisibilité nav claire) + bas-gauche (lisibilité du texte) */
+.hero__scrim {
+  position: absolute; inset: 0; z-index: -1;
+  background:
+    linear-gradient(180deg, rgba(33,28,30,.34) 0%, rgba(33,28,30,.05) 22%, transparent 40%),
+    linear-gradient(15deg, rgba(33,28,30,.62) 0%, rgba(33,28,30,.18) 42%, transparent 68%);
+}
+.hero__content { padding-bottom: clamp(3rem, 8vh, 6rem); padding-top: 8rem; }
+.hero .eyebrow { color: rgba(251, 248, 244, .92); }
+.hero h1 { max-width: 15ch; margin-block: .35em .1em; text-shadow: 0 2px 40px rgba(33,28,30,.4); }
+.hero__actions {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 1rem;
+  margin-top: 1.8rem;
+}
+.hero .btn { --btn-bg: var(--c-ivoire); --btn-fg: var(--c-encre); }
+.hero__price {
+  font-size: .95rem; color: rgba(251,248,244,.85);
+  display: inline-flex; align-items: center; gap: .5em;
+}
+.hero__price b { font-weight: 700; }
+/* Trait prisme signature du hero */
+.hero .prisme-line { width: 160px; margin-top: 2.2rem; box-shadow: 0 0 24px rgba(255,255,255,.4); }
+
+/* ---------- PROMESSE --------------------------------------- */
+.promise { text-align: center; }
+.promise .wrap { max-width: 800px; }
+.promise h2 { margin-bottom: .6rem; }
+.promise .lead { margin-inline: auto; }
+.promise__price {
+  display: inline-block; margin-top: 2rem;
+  font-family: var(--font-display); font-size: 1.15rem;
+}
+.promise__price b { color: var(--c-rose-fane); }
+
+/* ---------- SOCIAL PROOF (bandeau chiffres) ---------------- */
+.socialproof {
+  padding-block: clamp(2rem, 1.4rem + 2vw, 3.25rem);
+  border-bottom: 1px solid var(--c-line-soft);
+}
+.socialproof__grid {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  align-items: center;
+}
+.socialproof__item {
+  display: flex; flex-direction: column; align-items: center; gap: .35rem;
+  text-align: center; padding-inline: 1rem;
+  position: relative;
+}
+/* Séparateurs verticaux discrets entre les chiffres */
+.socialproof__item + .socialproof__item::before {
+  content: ""; position: absolute; left: 0; top: 50%;
+  transform: translateY(-50%);
+  width: 1px; height: 2.4rem; background: var(--c-line);
+}
+.socialproof__num {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 1.4rem + 2.4vw, 3rem);
+  font-weight: 400; line-height: 1;
+  color: var(--c-encre);
+  font-variant-numeric: tabular-nums;
+}
+.socialproof__label {
+  font-size: var(--fs-eyebrow);
+  text-transform: uppercase; letter-spacing: var(--ls-caps);
+  font-weight: 600; color: var(--c-encre-55);
+}
+@media (max-width: 640px) {
+  .socialproof__grid { grid-template-columns: repeat(2, 1fr); gap: 1.75rem 0; }
+  .socialproof__item:nth-child(odd)::before { display: none; }
+}
+
+/* ---------- OCCASIONS -------------------------------------- */
+.occasions { position: relative; overflow: hidden; isolation: isolate; }
+/* Fond qui reprend l'image survolée, floutée et désaturée (jamais pile l'image) */
+.occasions__bg {
+  position: absolute; inset: -8%; z-index: -1;
+  background-size: cover; background-position: center;
+  filter: blur(38px) saturate(115%) brightness(1.03);
+  opacity: 0;
+  transform: scale(1.12);
+  transition: opacity .7s var(--ease);
+  pointer-events: none;
+}
+.occasions.is-hovering .occasions__bg { opacity: .62; }
+/* Voile ivoire pour garder la douceur de l'écrin par-dessus le fond flou */
+.occasions.is-hovering::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: rgba(251, 248, 244, .48);
+  pointer-events: none;
+}
+.occasions .wrap { position: relative; z-index: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .occasions__bg { transition: none; }
+}
+
+.sec-head { max-width: 620px; margin-bottom: clamp(2.5rem, 5vw, 4rem); }
+.sec-head .eyebrow { margin-bottom: .9rem; }
+.sec-head.is-center { margin-inline: auto; text-align: center; }
+
+.occasions__grid {
+  display: grid;
+  gap: clamp(1rem, 2vw, 1.5rem);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 620px) { .occasions__grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1000px) { .occasions__grid { grid-template-columns: repeat(4, 1fr); } }
+
+.occ {
+  position: relative;
+  border-radius: var(--radius);
+  aspect-ratio: 7 / 10;              /* cartes plus grandes / plus verticales */
+  display: flex;
+  align-items: flex-end;
+  padding: 1.5rem;
+  color: #fff;
+  isolation: isolate;
+  transition: transform .5s var(--ease), opacity .5s var(--ease), filter .5s var(--ease);
+  will-change: transform;
+}
+
+/* Cadre qui découpe la photo en angles arrondis */
+.occ__frame {
+  position: absolute; inset: 0; z-index: -1;
+  border-radius: inherit; overflow: hidden;
+}
+.occ__media {
+  position: absolute; inset: 0;
+  background-image: var(--occ-img);
+  background-size: cover; background-position: center; background-repeat: no-repeat;
+  transition: transform 1.1s var(--ease);
+}
+.occ__frame::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 32%, rgba(33,28,30,.66) 100%);
+}
+
+/* Hover : la carte se soulève, la photo zoome */
+.occ:hover { transform: translateY(-8px) scale(1.015); z-index: 2; }
+.occ:hover .occ__media { transform: scale(1.09); }
+/* Les autres cartes s'effacent doucement pour laisser la vedette */
+.occasions__grid:hover .occ:not(:hover) { opacity: .68; filter: saturate(.85); transform: scale(.985); }
+
+.occ__label { position: relative; z-index: 1; }
+.occ__label h3 { font-size: 1.4rem; }
+.occ__label span { font-size: .82rem; opacity: .9; display: block; margin-top: .2em; }
+
+/* Photos par occasion */
+.occ--mariage { --occ-img: url("../img/opt/mariage-rainbow.webp"); }
+.occ--gender  { --occ-img: url("../img/opt/gender-girl.webp"); }
+.occ--anniv   { --occ-img: url("../img/opt/mariage-rougevert.webp"); }
+.occ--pro     { --occ-img: url("../img/opt/pro-stade.webp"); }
+.occ--gender .occ__media { background-position: center 30%; }
+
+@media (prefers-reduced-motion: reduce) {
+  .occ, .occ__media { transition: none; }
+  .occ:hover { transform: none; }
+  .occ:hover .occ__media { transform: none; }
+  .occasions__grid:hover .occ:not(:hover) { opacity: 1; filter: none; transform: none; }
+}
+
+/* ---------- GENDER REVEAL (diptyque immersif rose / bleu) --- */
+/* Le fond de section s'accorde aux photos : dégradé rose → bleu très pâle */
+.grsec {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(102deg, #F7E4EC 0%, #F3E9EC 46%, #E7EEF8 100%);
+}
+/* En-tête éditorial asymétrique : titre à gauche, description alignée à droite */
+.grsec__head {
+  max-width: var(--maxw); margin-inline: auto;
+  padding: var(--space-section) var(--gutter) clamp(2.5rem, 5vw, 4rem);
+  display: grid; gap: clamp(1.2rem, 3vw, 2.5rem);
+}
+@media (min-width: 820px) {
+  .grsec__head { grid-template-columns: 1.1fr .9fr; align-items: end; }
+}
+.grsec__head-l { text-align: left; }
+.grsec__head-l h2 { margin-top: .35em; }
+.grsec__head-r {
+  text-align: left;
+  align-self: end;
+  max-width: 42ch;
+}
+@media (min-width: 820px) {
+  .grsec__head-r { text-align: right; justify-self: end; padding-bottom: .35em; }
+}
+.grsec__head .eyebrow {
+  background: var(--prisme); -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+}
+.grsplit {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 760px) { .grsplit { grid-template-columns: 1fr 1fr; } }
+
+.grside {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  min-height: 62vh;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  text-align: center;
+  padding: clamp(2.2rem, 5vw, 4.5rem);
+  color: #fff;
+}
+@media (min-width: 760px) { .grside { min-height: min(86vh, 880px); } }
+.grside__img {
+  position: absolute; inset: 0; z-index: -2;
+  background-size: cover; background-position: center;
+  transition: transform 1.3s var(--ease);
+}
+.grside:hover .grside__img { transform: scale(1.05); }
+.grside--girl .grside__img { background-image: url("../img/opt/gender-girl.webp"); }
+.grside--boy  .grside__img { background-image: url("../img/opt/gender-boy.webp"); }
+/* Teinte immersive assortie à la fumée + voile bas pour le texte */
+.grside::after {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(180deg, transparent 40%, rgba(33,28,30,.66) 100%);
+}
+.grside--girl { box-shadow: inset 0 0 200px rgba(232,93,154,.28); }
+.grside--boy  { box-shadow: inset 0 0 200px rgba(86,120,232,.30); }
+.grside__label { position: relative; }
+.grside__label .eyebrow { color: rgba(255,255,255,.9); }
+.grside__label h3 { font-size: clamp(1.8rem, 4vw, 2.6rem); margin-top: .2em; }
+.grside__label p { font-size: .95rem; color: rgba(255,255,255,.82); margin: .5rem auto 0; max-width: 30ch; }
+
+/* ---------- PÊLE-MÊLE (photos argentiques, dispersées au scroll) --- */
+.pelemele {
+  position: relative;
+  --p: 0;        /* progression 0 (empilé) → 1 (déployé), pilotée au scroll */
+  --spread: 1;   /* amplitude de déploiement (réduite sur mobile) */
+  height: clamp(540px, 52vw, 720px);
+  margin-block: clamp(1rem, 3vw, 2.5rem);
+  overflow-x: clip; /* évite tout débordement horizontal quand les photos se déploient */
+}
+.polaroid {
+  position: absolute; top: 50%; left: 50%;
+  width: clamp(196px, 23vw, 288px);
+  margin: 0;
+  padding: 13px 13px 50px;
+  background: #fffdfb;
+  border-radius: 3px;
+  box-shadow: 0 26px 50px -20px rgba(33,28,30,.45), 0 3px 10px rgba(33,28,30,.13);
+  transform-origin: center;
+  /* Position par défaut (empilé) ; le déploiement est calculé en JS pour une
+     compatibilité totale (Safari inclus) — voir applyP() dans main.js. */
+  transform: translate(-50%, -50%);
+  transition: box-shadow .4s var(--ease);
+  will-change: transform;
+  cursor: pointer;
+}
+.polaroid img {
+  width: 100%; aspect-ratio: 1 / 1; object-fit: cover;
+  display: block; background: #e7d3cf;
+  pointer-events: none;
+}
+.polaroid__cap {
+  position: absolute; left: 0; right: 0; bottom: 15px;
+  text-align: center;
+  font-family: var(--font-display); font-style: italic;
+  font-size: 1.05rem; color: var(--c-encre-70);
+}
+.polaroid:hover, .polaroid:focus-visible { z-index: 30 !important; box-shadow: 0 34px 66px -18px rgba(33,28,30,.5); }
+
+@media (max-width: 760px) {
+  .pelemele { height: clamp(440px, 108vw, 620px); }
+  .polaroid { width: clamp(150px, 44vw, 210px); padding: 9px 9px 34px; }
+  .polaroid__cap { bottom: 10px; font-size: .9rem; }
+}
+
+/* ---------- LIGHTBOX --------------------------------------- */
+.lightbox {
+  position: fixed; inset: 0; z-index: 200;
+  display: flex; align-items: center; justify-content: center;
+  padding: clamp(1rem, 4vw, 3rem);
+  background: rgba(24, 20, 22, .82);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  opacity: 0; visibility: hidden; pointer-events: none;
+  transition: opacity .35s var(--ease), visibility 0s linear .35s;
+}
+.lightbox.is-open {
+  opacity: 1; visibility: visible; pointer-events: auto;
+  transition: opacity .35s var(--ease), visibility 0s;
+}
+.lightbox__frame {
+  margin: 0; background: #fffdfb;
+  padding: clamp(10px, 1.4vw, 18px) clamp(10px, 1.4vw, 18px) clamp(38px, 4vw, 58px);
+  border-radius: 4px;
+  box-shadow: 0 40px 90px -30px rgba(0,0,0,.7);
+  transform: scale(.92); transition: transform .4s var(--ease);
+  max-width: min(92vw, 860px);
+}
+.lightbox.is-open .lightbox__frame { transform: scale(1); }
+.lightbox__img {
+  display: block; max-width: 100%; max-height: 74vh;
+  width: auto; height: auto; object-fit: contain; background: #e7d3cf;
+}
+.lightbox__cap {
+  margin-top: clamp(10px, 1.4vw, 16px); text-align: center;
+  font-family: var(--font-display); font-style: italic;
+  font-size: clamp(1.1rem, 2.4vw, 1.5rem); color: var(--c-encre);
+}
+.lightbox__close {
+  position: absolute; top: clamp(.8rem, 2vw, 1.6rem); right: clamp(.8rem, 2vw, 1.6rem);
+  width: 46px; height: 46px; border: 0; border-radius: 50%;
+  background: rgba(251,248,244,.14); color: #fff;
+  font-size: 1.8rem; line-height: 1; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background .3s var(--ease);
+}
+.lightbox__close:hover { background: rgba(251,248,244,.28); }
+@media (prefers-reduced-motion: reduce) {
+  .lightbox, .lightbox__frame { transition: none; }
+}
+
+.gallery__foot { margin-top: clamp(2rem, 4vw, 3.2rem); text-align: center; }
+
+/* ---------- SÉCURITÉ & CADRE (bloc confiance, fond encre) --- */
+.security {
+  position: relative;
+  color: var(--c-ivoire);
+  background:
+    linear-gradient(180deg, rgba(28,23,25,.92), rgba(28,23,25,.97)),
+    url("../img/opt/mariage-ceremonie.webp") center / cover no-repeat fixed;
+}
+.security .wrap { position: relative; }
+.security .eyebrow { color: #e3b8c4; }
+.security__top { display: grid; gap: 1.5rem; margin-bottom: clamp(2.5rem, 5vw, 3.5rem); }
+.security h2 { max-width: 18ch; }
+.security h2 .ital { color: #f0cdd6; }
+.security__lead { color: rgba(251,248,244,.72); max-width: 46ch; }
+@media (min-width: 860px) {
+  .security__top { grid-template-columns: 1.1fr .9fr; align-items: end; }
+}
+.security__grid {
+  display: grid; gap: 1.5rem;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 620px) { .security__grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 980px) { .security__grid { grid-template-columns: repeat(4, 1fr); } }
+.secard {
+  padding: 1.6rem 1.5rem;
+  border: 1px solid rgba(251,248,244,.14);
+  border-radius: var(--radius);
+  background: rgba(251,248,244,.03);
+}
+.secard b {
+  display: block; font-family: var(--font-display);
+  font-size: 1.2rem; font-weight: 420; margin-bottom: .5rem;
+}
+.secard p { font-size: .92rem; color: rgba(251,248,244,.66); }
+.security__note {
+  margin-top: 2.5rem; display: inline-flex; align-items: center; gap: .7em;
+  font-size: .9rem; color: rgba(251,248,244,.75);
+}
+.security__note .prisme-line { width: 40px; }
+
+/* ---------- FORMULAIRE (moment de design) ------------------ */
+/* Objectif : la section entière tient dans un viewport sur desktop → espacements compacts */
+.contact { background: var(--c-ivoire); position: relative; }
+@media (min-width: 940px) {
+  .contact.section {
+    min-height: 100svh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding-block: clamp(1.5rem, 4vh, 3rem);
+  }
+}
+/* Séparateur prisme juste avant le formulaire (signature n°3) */
+.contact .prisme-line.is-top { margin: 0 auto clamp(1.5rem, 3.5vh, 2.5rem); }
+.contact__grid { display: grid; gap: clamp(1.6rem, 4vw, 3.5rem); }
+@media (min-width: 940px) {
+  .contact__grid { grid-template-columns: .82fr 1.18fr; align-items: center; }
+}
+.contact__aside h2 { margin-block: .5rem .8rem; }
+.contact__aside .lead { font-size: 1.1rem; }
+.contact__visual {
+  margin-top: 1.4rem; border-radius: var(--radius-lg); overflow: hidden;
+  aspect-ratio: 5 / 4;
+  background: #e7d3cf url("../img/opt/mariage-ceremonie.webp") center / cover no-repeat;
+  display: none;
+}
+@media (min-width: 940px) { .contact__visual { display: block; } }
+.contact__reassure { margin-top: 1.1rem; display: grid; gap: .5rem; }
+.contact__reassure li {
+  list-style: none; display: flex; gap: .6em; align-items: baseline;
+  font-size: .92rem; color: var(--c-encre-70);
+}
+.contact__reassure li::before { content: "—"; color: var(--c-rose-fane); }
+
+.form {
+  background: #fff;
+  border: 1px solid var(--c-line-soft);
+  border-radius: var(--radius-lg);
+  padding: clamp(1.3rem, 2.4vw, 2rem);
+  box-shadow: var(--shadow-sm);
+}
+.form__row { display: grid; gap: .8rem; }
+@media (min-width: 560px) { .form__row.cols-2 { grid-template-columns: 1fr 1fr; } }
+.field { display: flex; flex-direction: column; gap: .35rem; margin-bottom: .8rem; }
+.field:last-of-type { margin-bottom: 0; }
+.field label {
+  font-size: .72rem; text-transform: uppercase; letter-spacing: var(--ls-caps);
+  font-weight: 600; color: var(--c-encre-70);
+}
+.field label .req { color: var(--c-rose-fane); }
+.field input, .field select, .field textarea {
+  padding: .68em .9em;
+  background: var(--c-ivoire);
+  border: 1px solid var(--c-line);
+  border-radius: 11px;
+  transition: border-color .3s var(--ease), background .3s var(--ease);
+}
+.field input:focus, .field select:focus, .field textarea:focus {
+  outline: none; border-color: var(--c-rose-fane); background: #fff;
+}
+.field textarea { resize: vertical; min-height: 68px; }
+
+.consent { flex-direction: row; align-items: flex-start; gap: .6rem; margin-top: .2rem; }
+.consent input { width: 20px; height: 20px; margin-top: .1rem; accent-color: var(--c-rose-fane); flex: none; }
+.consent label { text-transform: none; letter-spacing: normal; font-weight: 400; font-size: .8rem; color: var(--c-encre-70); }
+
+.form__submit { margin-top: 1.1rem; display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; }
+.form__submit .btn { width: auto; }
+.form__hint { font-size: .82rem; color: var(--c-encre-55); }
+
+.form__success {
+  display: none;
+  padding: clamp(1.8rem, 4vw, 2.6rem);
+  text-align: center;
+}
+.form__success.is-visible { display: block; }
+.form__success .prisme-line { margin: 0 auto 1.4rem; }
+.form__success h3 { margin-bottom: .6rem; }
+.form.is-sent .form__body { display: none; }
+
+/* ---------- FOOTER ----------------------------------------- */
+.footer { background: var(--c-encre); color: var(--c-ivoire); padding-block: clamp(3.5rem, 6vw, 5rem) 2.5rem; }
+.footer__top { display: grid; gap: 2.5rem; margin-bottom: 3rem; }
+@media (min-width: 780px) { .footer__top { grid-template-columns: 1.4fr 1fr 1fr; } }
+.footer .brand__name { font-size: 1.5rem; }
+.footer__tag { color: rgba(251,248,244,.6); margin-top: 1rem; max-width: 34ch; font-size: .95rem; }
+.footer .prisme-line { margin-top: 1.4rem; }
+.footer h4 {
+  font-size: .72rem; text-transform: uppercase; letter-spacing: var(--ls-caps);
+  color: rgba(251,248,244,.5); margin-bottom: 1.1rem; font-weight: 600;
+}
+.footer ul { list-style: none; display: grid; gap: .7rem; }
+.footer a { color: rgba(251,248,244,.8); font-size: .95rem; transition: color .3s var(--ease); }
+.footer a:hover { color: #fff; }
+.footer__bottom {
+  border-top: 1px solid rgba(251,248,244,.12); padding-top: 1.8rem;
+  display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between;
+  font-size: .82rem; color: rgba(251,248,244,.55);
+}
+.footer__zones { color: rgba(251,248,244,.55); font-size: .88rem; max-width: 70ch; margin-top: 1.5rem; }

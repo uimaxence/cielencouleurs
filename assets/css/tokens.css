@@ -1,0 +1,63 @@
+/* ============================================================
+   Ciel en Couleurs — Design tokens
+   Concept « Écrin & prisme ». Toute la DA se règle ici.
+   ============================================================ */
+
+:root {
+  /* --- Palette ---------------------------------------------- */
+  --c-rose-poudre: #F6E7E6; /* fond principal, base marque   */
+  --c-ivoire:      #FBF8F4; /* fond alterné, respiration      */
+  --c-rose-fane:   #C8788A; /* accent (rappel Madame Planner) */
+  --c-encre:       #211C1E; /* texte principal                */
+  --c-greige:      #9E9089; /* texte secondaire, filets       */
+
+  /* Nuances dérivées (usage interne, jamais d'aplat criard) */
+  --c-rose-fane-dark: #A85C6E;
+  --c-encre-70:  rgba(33, 28, 30, .70);
+  --c-encre-55:  rgba(33, 28, 30, .55);
+  --c-line:      rgba(33, 28, 30, .12);
+  --c-line-soft: rgba(33, 28, 30, .07);
+
+  /* Le prisme — dégradé spectral signature, usage parcimonieux */
+  --prisme: linear-gradient(
+    90deg,
+    #E85D9A 0%, #F2A65A 22%, #F2D64B 42%,
+    #6FCF97 62%, #56A8E8 82%, #9B6FE8 100%
+  );
+
+  /* --- Typographie ------------------------------------------ */
+  --font-display: "Fraunces", "Canela", Georgia, serif;
+  --font-body:    "Hanken Grotesk", "Inter", system-ui, -apple-system, sans-serif;
+
+  /* Échelle fluide (mobile-first, clamp responsive) */
+  --fs-eyebrow: .78rem;
+  --fs-body:    clamp(1rem, .96rem + .3vw, 1.125rem);
+  --fs-lead:    clamp(1.15rem, 1.05rem + .6vw, 1.4rem);
+  --fs-h3:      clamp(1.3rem, 1.15rem + .8vw, 1.75rem);
+  --fs-h2:      clamp(2rem, 1.5rem + 2.4vw, 3.4rem);
+  --fs-h1:      clamp(2.8rem, 1.9rem + 4.6vw, 6rem);
+
+  --lh-tight: 1.05;
+  --lh-body:  1.62;
+  --ls-caps:  .15em; /* letter-spacing utilitaire (labels, nav) */
+
+  /* --- Espacements & rythme --------------------------------- */
+  --space-section: clamp(4.5rem, 3rem + 8vw, 9rem);
+  --gutter:        clamp(1.25rem, .8rem + 2.5vw, 3rem);
+  --maxw:          1240px;
+  --maxw-text:     58ch;
+  --radius:        16px;
+  --radius-lg:     26px;
+
+  /* --- Ombres (très douces, jamais dures) ------------------- */
+  --shadow-sm: 0 2px 18px -8px rgba(33, 28, 30, .18);
+  --shadow-md: 0 24px 60px -30px rgba(33, 28, 30, .35);
+
+  /* --- Motion ----------------------------------------------- */
+  --ease: cubic-bezier(.22, .61, .36, 1);
+  --dur:  .7s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --dur: .001s; }
+}

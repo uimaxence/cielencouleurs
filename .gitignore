@@ -1,0 +1,10 @@
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Logs & divers
+*.log
+Thumbs.db
+
+# Documents markdown (brief, notes, README)
+*.md
