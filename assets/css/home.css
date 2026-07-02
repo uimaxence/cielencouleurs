@@ -40,9 +40,15 @@
   width: auto; display: block;
   transition: filter var(--dur) var(--ease);
 }
-/* Sur le hero (nav claire, menu fermé) : logo passé en blanc pour rester lisible sur la photo.
-   Au scroll (fond ivoire) ou menu ouvert : logo naturel (noir + trait rose). */
-.nav:not(.is-scrolled):not(.is-open) .brand__logo { filter: brightness(0) invert(1); }
+/* Sur le hero (nav claire) : on garde le logo naturel (noir + trait rose) mais on ajoute
+   un halo clair + une ombre douce pour qu'il reste lisible sur la photo, sans le repeindre.
+   Au scroll (fond ivoire) : logo net, sans effet. */
+.nav:not(.is-scrolled) .brand__logo {
+  filter:
+    drop-shadow(0 0 10px rgba(251, 248, 244, .85))
+    drop-shadow(0 0 3px rgba(251, 248, 244, .9))
+    drop-shadow(0 2px 6px rgba(33, 28, 30, .18));
+}
 .brand__name {
   font-family: var(--font-display);
   font-size: 1.32rem;
@@ -154,8 +160,8 @@
 /* Média : photo réelle du burst de fumée colorée (couple à droite, ciel à gauche) */
 .hero__media {
   position: absolute; inset: 0; z-index: -2;
-  /* Mobile : on cadre vers la droite pour garder couple + fumée dans le champ */
-  background: #e7d3cf url("../img/opt/hero.webp") 74% 42% / cover no-repeat;
+  /* Mobile : cadrage sur la droite pour garder le couple + la fumée dans le champ */
+  background: #e7d3cf url("../img/opt/hero.webp") 88% 40% / cover no-repeat;
   transform: scale(1.03);
   animation: drift 30s var(--ease) infinite alternate;
 }
@@ -437,9 +443,10 @@
 .polaroid:hover, .polaroid:focus-visible { z-index: 30 !important; box-shadow: 0 34px 66px -18px rgba(33,28,30,.5); }
 
 @media (max-width: 760px) {
-  .pelemele { height: clamp(440px, 108vw, 620px); }
-  .polaroid { width: clamp(150px, 44vw, 210px); padding: 9px 9px 34px; }
-  .polaroid__cap { bottom: 10px; font-size: .9rem; }
+  /* Arrangement vertical (colonne 2×4) → stage plus haut */
+  .pelemele { height: clamp(660px, 180vw, 780px); }
+  .polaroid { width: clamp(148px, 42vw, 196px); padding: 9px 9px 34px; }
+  .polaroid__cap { bottom: 10px; font-size: .88rem; }
 }
 
 /* ---------- LIGHTBOX --------------------------------------- */

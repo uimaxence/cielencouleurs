@@ -139,13 +139,26 @@
       const num = (v) => parseFloat(cs.getPropertyValue(v)) || 0;
       return { el, dx: num("--dx"), dy: num("--dy"), rot: num("--rot"), ox: num("--ox"), oy: num("--oy"), rot0: num("--rot0") };
     });
+    // Mobile (portrait) : arrangement VERTICAL en colonne 2×4 — les photos montent
+    // plutôt que de s'étaler horizontalement (où elles seraient coupées sur les côtés).
+    // Ordre = ordre des .polaroid dans le HTML.
+    const MOBILE = [
+      { dx: -94, dy: -238, rot: -3 }, { dx: 96, dy: -222, rot: 3 },
+      { dx: -100, dy: -80, rot: 3 },  { dx: 98, dy: -66, rot: -3 },
+      { dx: -96, dy: 78, rot: -3 },   { dx: 100, dy: 94, rot: 3 },
+      { dx: -98, dy: 236, rot: 3 },   { dx: 96, dy: 252, rot: -3 },
+    ];
     const applyP = (p) => {
-      const spread = window.matchMedia("(max-width: 760px)").matches ? 0.5 : 1;
+      const mobile = window.matchMedia("(max-width: 760px)").matches;
       for (let i = 0; i < cards.length; i++) {
         const c = cards[i];
-        const x = c.ox + c.dx * p * spread;
-        const y = c.oy + c.dy * p * spread;
-        const r = c.rot0 + c.rot * p;
+        const m = mobile ? MOBILE[i] : null;
+        const dx = m ? m.dx : c.dx;
+        const dy = m ? m.dy : c.dy;
+        const rot = m ? m.rot : c.rot;
+        const x = c.ox + dx * p;
+        const y = c.oy + dy * p;
+        const r = c.rot0 + rot * p;
         c.el.style.transform =
           "translate(-50%, -50%) translate(" + x.toFixed(1) + "px, " + y.toFixed(1) + "px) rotate(" + r.toFixed(2) + "deg)";
       }
