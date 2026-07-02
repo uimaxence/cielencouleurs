@@ -143,10 +143,10 @@
     // plutôt que de s'étaler horizontalement (où elles seraient coupées sur les côtés).
     // Ordre = ordre des .polaroid dans le HTML.
     const MOBILE = [
-      { dx: -94, dy: -238, rot: -3 }, { dx: 96, dy: -222, rot: 3 },
-      { dx: -100, dy: -80, rot: 3 },  { dx: 98, dy: -66, rot: -3 },
-      { dx: -96, dy: 78, rot: -3 },   { dx: 100, dy: 94, rot: 3 },
-      { dx: -98, dy: 236, rot: 3 },   { dx: 96, dy: 252, rot: -3 },
+      { dx: -66, dy: -212, rot: -6 }, { dx: 82, dy: -176, rot: 5 },
+      { dx: -90, dy: -58, rot: 7 },   { dx: 70, dy: -94, rot: -4 },
+      { dx: -58, dy: 74, rot: -7 },   { dx: 92, dy: 44, rot: 4 },
+      { dx: -82, dy: 196, rot: 5 },   { dx: 74, dy: 166, rot: -6 },
     ];
     const applyP = (p) => {
       const mobile = window.matchMedia("(max-width: 760px)").matches;

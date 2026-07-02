@@ -443,8 +443,8 @@
 .polaroid:hover, .polaroid:focus-visible { z-index: 30 !important; box-shadow: 0 34px 66px -18px rgba(33,28,30,.5); }
 
 @media (max-width: 760px) {
-  /* Arrangement vertical (colonne 2×4) → stage plus haut */
-  .pelemele { height: clamp(660px, 180vw, 780px); }
+  /* Arrangement vertical resserré → stage un peu moins haut */
+  .pelemele { height: clamp(580px, 162vw, 700px); }
   .polaroid { width: clamp(148px, 42vw, 196px); padding: 9px 9px 34px; }
   .polaroid__cap { bottom: 10px; font-size: .88rem; }
 }
