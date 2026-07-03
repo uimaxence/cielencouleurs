@@ -22,7 +22,7 @@
   <link rel="stylesheet" href="assets/css/tokens.css" />
   <link rel="stylesheet" href="assets/css/base.css" />
   <link rel="stylesheet" href="assets/css/home.css?v=12" />
-  <link rel="stylesheet" href="assets/css/pages.css?v=4" />
+  <link rel="stylesheet" href="assets/css/pages.css?v=5" />
 </head>
 <body>
 
@@ -38,12 +38,20 @@
           <li><a href="index.html">Accueil</a></li>
           <li class="has-sub">
             <a href="mariage.html">Prestations</a>
-            <ul class="nav__sub">
-              <li><a href="mariage.html">Mariage</a></li>
-              <li><a href="gender-reveal.html">Gender reveal</a></li>
-              <li><a href="anniversaire.html">Anniversaire &amp; baptême</a></li>
-              <li><a href="evenement-pro.html">Événement pro</a></li>
-            </ul>
+            <div class="megamenu">
+              <div class="megamenu__panel">
+                <ul class="megamenu__links">
+                  <li><a href="mariage.html" class="is-active" data-img="assets/img/opt/mariage-ceremonie.webp" data-cap="Mariage"><b>Mariage</b><span>Entrée, cérémonie et sortie en couleurs</span></a></li>
+                  <li><a href="gender-reveal.html" data-img="assets/img/opt/gender-girl.webp" data-cap="Gender reveal"><b>Gender reveal</b><span>Rose ou bleu, la révélation grandeur nature</span></a></li>
+                  <li><a href="anniversaire.html" data-img="assets/img/opt/mariage-rougevert.webp" data-cap="Anniversaire"><b>Anniversaire &amp; baptême</b><span>Toutes vos grandes occasions</span></a></li>
+                  <li><a href="evenement-pro.html" data-img="assets/img/opt/pro-stade.webp" data-cap="Événement pro"><b>Événement pro</b><span>Marques, lieux de réception, séminaires</span></a></li>
+                </ul>
+                <figure class="megamenu__preview">
+                  <img src="assets/img/opt/mariage-ceremonie.webp" alt="Aperçu de la prestation" />
+                  <figcaption>Mariage</figcaption>
+                </figure>
+              </div>
+            </div>
           </li>
           <li><a href="realisations.html" aria-current="page">Réalisations</a></li>
           <li><a href="securite.html">Sécurité</a></li>
@@ -130,6 +138,6 @@
     </div>
   </footer>
 
-  <script src="assets/js/main.js?v=7" defer></script>
+  <script src="assets/js/main.js?v=8" defer></script>
 </body>
 </html>

@@ -270,6 +270,22 @@
     if (next) next.addEventListener("click", () => step(1));
   });
 
+  /* --- Méga-menu : l'aperçu change selon l'item survolé ------ */
+  document.querySelectorAll(".megamenu").forEach((mm) => {
+    const img = mm.querySelector(".megamenu__preview img");
+    const cap = mm.querySelector(".megamenu__preview figcaption");
+    const links = mm.querySelectorAll(".megamenu__links a");
+    if (!img) return;
+    links.forEach((a) => {
+      a.addEventListener("mouseenter", () => {
+        if (a.dataset.img && img.getAttribute("src") !== a.dataset.img) img.src = a.dataset.img;
+        if (a.dataset.cap && cap) cap.textContent = a.dataset.cap;
+        links.forEach((l) => l.classList.remove("is-active"));
+        a.classList.add("is-active");
+      });
+    });
+  });
+
   /* --- Année dynamique du footer ---------------------------- */
   const y = document.querySelector("[data-year]");
   if (y) y.textContent = new Date().getFullYear();

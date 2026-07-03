@@ -38,6 +38,48 @@
 .nav__sub a::after { display: none; }
 .nav__sub a:hover { background: var(--c-rose-poudre); color: var(--c-encre) !important; }
 
+/* ---------- MÉGA-MENU « Prestations » ---------------------- */
+/* Pont invisible (padding-top) : le hover ne se coupe pas entre l'item et le panneau. */
+.megamenu {
+  position: absolute; top: 100%; left: 0; z-index: 50;
+  padding-top: 18px;
+  opacity: 0; visibility: hidden; pointer-events: none;
+  transform: translateY(6px);
+  transition: opacity .28s var(--ease), transform .28s var(--ease), visibility 0s linear .28s;
+}
+.has-sub:hover .megamenu, .has-sub:focus-within .megamenu {
+  opacity: 1; visibility: visible; pointer-events: auto; transform: translateY(0);
+  transition: opacity .28s var(--ease), transform .28s var(--ease), visibility 0s;
+}
+.megamenu__panel {
+  display: grid; grid-template-columns: 1fr 236px; gap: 1.4rem;
+  width: 640px; max-width: 90vw; padding: 1.1rem;
+  background: rgba(251, 248, 244, .98);
+  backdrop-filter: saturate(150%) blur(16px);
+  -webkit-backdrop-filter: saturate(150%) blur(16px);
+  border: 1px solid var(--c-line-soft); border-radius: 20px;
+  box-shadow: var(--shadow-md);
+}
+.megamenu__links { list-style: none; display: grid; gap: .15rem; align-content: start; }
+.megamenu__links a {
+  display: block; padding: .8rem .9rem; border-radius: 12px;
+  text-transform: none; letter-spacing: normal; font-weight: 500;
+  color: var(--c-encre) !important;
+}
+.megamenu__links a::after { display: none; }
+.megamenu__links b { display: block; font-family: var(--font-display); font-weight: 420; font-size: 1.18rem; }
+.megamenu__links span { display: block; font-size: .82rem; color: var(--c-encre-70); margin-top: .15em; font-weight: 400; }
+.megamenu__links a:hover, .megamenu__links a.is-active { background: var(--c-rose-poudre); }
+/* Aperçu façon photo argentique imprimée, qui change au survol (voir main.js) */
+.megamenu__preview {
+  margin: 0; align-self: center;
+  background: #fffdfb; padding: 10px 10px 34px; border-radius: 3px;
+  box-shadow: 0 18px 40px -18px rgba(33,28,30,.45), 0 2px 6px rgba(33,28,30,.12);
+  transform: rotate(-2.2deg);
+}
+.megamenu__preview img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; display: block; background: #e7d3cf; transition: opacity .25s var(--ease); }
+.megamenu__preview figcaption { text-align: center; font-family: var(--font-display); font-style: italic; font-size: .96rem; color: var(--c-encre-70); padding-top: 9px; }
+
 /* ---------- HERO de sous-page ------------------------------ */
 .subhero {
   position: relative;
