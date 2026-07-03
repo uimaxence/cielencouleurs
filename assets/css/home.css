@@ -167,15 +167,18 @@
   .hero__pin { align-items: flex-start; }  /* desktop : texte en haut à gauche */
 }
 
-/* Média : cérémonie (ciel/paysage à gauche, étincelles + couple à droite) */
+/* Média : cérémonie. Image PORTRAIT dédiée en mobile, PAYSAGE en desktop. */
 .hero__media {
   position: absolute; inset: 0; z-index: -2;
-  background: #cdd6dd url("../img/opt/test-hero.webp") 60% 52% / cover no-repeat;
+  background: #cdd6dd url("../img/opt/test-hero-mobile.webp") center 45% / cover no-repeat;
   transform: scale(1.03);
   animation: drift 34s var(--ease) infinite alternate;
 }
 @media (min-width: 760px) {
-  .hero__media { background-position: center 46%; }
+  .hero__media {
+    background-image: url("../img/opt/test-hero.webp");
+    background-position: center 46%;
+  }
 }
 @keyframes drift {
   to { transform: scale(1.09) translate3d(-1%, -1%, 0); }
