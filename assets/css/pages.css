@@ -60,7 +60,7 @@
   border: 1px solid var(--c-line-soft); border-radius: 20px;
   box-shadow: var(--shadow-md);
 }
-.megamenu__links { list-style: none; display: grid; gap: .15rem; align-content: start; }
+.megamenu__links { list-style: none; margin: 0; padding: 0; display: grid; gap: .15rem; align-content: start; }
 .megamenu__links a {
   display: block; padding: .8rem .9rem; border-radius: 12px;
   text-transform: none; letter-spacing: normal; font-weight: 500;
