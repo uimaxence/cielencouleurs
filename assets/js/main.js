@@ -252,6 +252,24 @@
     });
   }
 
+  /* --- Carrousels (galeries mobile) : flèches préc/suiv ------ */
+  document.querySelectorAll(".carousel").forEach((car) => {
+    const track = car.querySelector(".photostack");
+    const prev = car.querySelector(".carousel__prev");
+    const next = car.querySelector(".carousel__next");
+    if (!track) return;
+    const step = (dir) => {
+      const card = track.querySelector(".photo");
+      if (!card) return;
+      const cs = getComputedStyle(track);
+      const gap = parseFloat(cs.columnGap || cs.gap || "16") || 16;
+      const w = card.getBoundingClientRect().width + gap;
+      track.scrollBy({ left: dir * w, behavior: reduce ? "auto" : "smooth" });
+    };
+    if (prev) prev.addEventListener("click", () => step(-1));
+    if (next) next.addEventListener("click", () => step(1));
+  });
+
   /* --- Année dynamique du footer ---------------------------- */
   const y = document.querySelector("[data-year]");
   if (y) y.textContent = new Date().getFullYear();
