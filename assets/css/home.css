@@ -159,12 +159,9 @@
   position: sticky; top: 0;
   height: 100svh;
   display: flex;
-  align-items: flex-end;   /* mobile : texte en bas */
+  align-items: flex-start;   /* texte en haut (mobile et desktop) */
   overflow: hidden;
   color: var(--c-ivoire);
-}
-@media (min-width: 760px) {
-  .hero__pin { align-items: flex-start; }  /* desktop : texte en haut à gauche */
 }
 
 /* Média : cérémonie. Image PORTRAIT dédiée en mobile, PAYSAGE en desktop. */
@@ -195,14 +192,13 @@
 }
 /* Contenu : marges confortables pour ne pas coller au bord de l'image */
 .hero__content {
-  padding-bottom: clamp(3rem, 8vh, 6rem);   /* mobile (bas) */
-  padding-top: 7.5rem;
+  padding-top: clamp(6.5rem, 15vh, 9rem);   /* mobile : sous la nav, dans le tiers haut */
+  padding-bottom: 0;
   transition: opacity .25s linear;
 }
 @media (min-width: 760px) {
   .hero__content {
     padding-top: clamp(8.5rem, 17vh, 13rem); /* desktop : sous la nav, en haut */
-    padding-bottom: 0;
   }
 }
 .hero .eyebrow { color: rgba(251, 248, 244, .95); }
