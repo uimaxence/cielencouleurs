@@ -32,6 +32,7 @@
   <link rel="stylesheet" href="assets/css/tokens.css" />
   <link rel="stylesheet" href="assets/css/base.css" />
   <link rel="stylesheet" href="assets/css/home.css?v=10" />
+  <link rel="stylesheet" href="assets/css/pages.css?v=1" />
 
   <!-- Schema.org : LocalBusiness -->
   <script type="application/ld+json">
@@ -61,15 +62,23 @@
 
       <nav aria-label="Navigation principale">
         <ul class="nav__links">
-          <li><a href="#top" aria-current="page">Accueil</a></li>
-          <li><a href="#occasions">Prestations</a></li>
-          <li><a href="#realisations">Réalisations</a></li>
-          <li><a href="#securite">Sécurité</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li><a href="index.html" aria-current="page">Accueil</a></li>
+          <li class="has-sub">
+            <a href="mariage.html">Prestations</a>
+            <ul class="nav__sub">
+              <li><a href="mariage.html">Mariage</a></li>
+              <li><a href="gender-reveal.html">Gender reveal</a></li>
+              <li><a href="anniversaire.html">Anniversaire &amp; baptême</a></li>
+              <li><a href="evenement-pro.html">Événement pro</a></li>
+            </ul>
+          </li>
+          <li><a href="realisations.html">Réalisations</a></li>
+          <li><a href="securite.html">Sécurité</a></li>
+          <li><a href="contact.html">Contact</a></li>
         </ul>
       </nav>
 
-      <a class="btn nav__cta" href="#contact">Demander un devis</a>
+      <a class="btn nav__cta" href="contact.html">Demander un devis</a>
 
       <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobile-menu">
         <span></span><span></span><span></span>
@@ -77,12 +86,15 @@
     </div>
 
     <div class="nav__mobile" id="mobile-menu">
-      <a href="#top">Accueil</a>
-      <a href="#occasions">Prestations</a>
-      <a href="#realisations">Réalisations</a>
-      <a href="#securite">Sécurité</a>
-      <a href="#contact">Contact</a>
-      <a class="btn" href="#contact">Demander un devis</a>
+      <a href="index.html">Accueil</a>
+      <a href="mariage.html">Mariage</a>
+      <a href="gender-reveal.html">Gender reveal</a>
+      <a href="anniversaire.html">Anniversaire &amp; baptême</a>
+      <a href="evenement-pro.html">Événement pro</a>
+      <a href="realisations.html">Réalisations</a>
+      <a href="securite.html">Sécurité</a>
+      <a href="contact.html">Contact</a>
+      <a class="btn" href="contact.html">Demander un devis</a>
     </div>
   </header>
 
