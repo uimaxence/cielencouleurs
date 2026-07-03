@@ -1,5 +1,5 @@
 /* ============================================================
-   Ciel en Couleurs — Sous-pages (gabarit partagé)
+   Ciel en Couleurs - Sous-pages (gabarit partagé)
    Menu déroulant Prestations · hero de sous-page · contenu · bande CTA
    ============================================================ */
 
@@ -99,7 +99,7 @@
 /* Liste de teintes / puces prisme */
 .ticklist { list-style: none; display: grid; gap: .7rem; margin-top: 1.2rem; }
 .ticklist li { display: flex; gap: .7em; align-items: baseline; color: var(--c-encre-70); }
-.ticklist li::before { content: "—"; color: var(--c-rose-fane); }
+.ticklist li::before { content: "•"; color: var(--c-rose-fane); font-size: .9em; }
 
 /* FAQ */
 .faq { display: grid; gap: .8rem; max-width: 780px; margin-top: clamp(1.5rem, 3vw, 2.5rem); }
@@ -113,14 +113,34 @@
 }
 .faq summary::-webkit-details-marker { display: none; }
 .faq summary::after { content: "+"; color: var(--c-rose-fane); font-size: 1.5rem; line-height: 1; }
-.faq details[open] summary::after { content: "–"; }
+.faq details[open] summary::after { content: "-"; }
 .faq details[open] summary { margin-bottom: .7rem; }
 .faq p { color: var(--c-encre-70); font-size: .96rem; }
 
-/* Galerie simple (sous-pages) */
-.grid-photos { display: grid; gap: clamp(.7rem, 1.5vw, 1.1rem); grid-template-columns: repeat(2, 1fr); }
-@media (min-width: 760px) { .grid-photos { grid-template-columns: repeat(3, 1fr); } }
-.grid-photos img { width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius); aspect-ratio: 4/5; display: block; }
+/* Galerie « photo argentique imprimée » (sous-pages) : polaroids en grille,
+   angles variés, se redressent au survol. */
+.photostack { display: grid; gap: clamp(1.1rem, 2.6vw, 2.2rem); grid-template-columns: repeat(2, 1fr); }
+@media (min-width: 720px) { .photostack { grid-template-columns: repeat(3, 1fr); } }
+.photo {
+  margin: 0; background: #fffdfb; padding: 12px 12px 44px; border-radius: 3px;
+  box-shadow: 0 20px 42px -20px rgba(33,28,30,.42), 0 3px 8px rgba(33,28,30,.12);
+  transition: transform .45s var(--ease), box-shadow .45s var(--ease);
+  will-change: transform;
+}
+.photo img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; display: block; background: #e7d3cf; }
+.photo figcaption {
+  text-align: center; font-family: var(--font-display); font-style: italic;
+  font-size: 1.02rem; color: var(--c-encre-70); padding-top: 13px;
+}
+.photo:nth-child(3n+1) { transform: rotate(-2.2deg); }
+.photo:nth-child(3n+2) { transform: rotate(1.6deg); }
+.photo:nth-child(3n+3) { transform: rotate(-1deg); }
+.photo:nth-child(4n+2) { transform: rotate(2.4deg); }
+.photo:hover {
+  transform: rotate(0) scale(1.035); z-index: 2; position: relative;
+  box-shadow: 0 30px 60px -18px rgba(33,28,30,.5);
+}
+@media (prefers-reduced-motion: reduce) { .photo { transition: none; } }
 
 /* ---------- Bande CTA (avant footer) ----------------------- */
 .cta-band { background: var(--c-encre); color: var(--c-ivoire); text-align: center; }

@@ -1,5 +1,5 @@
 /* ============================================================
-   Ciel en Couleurs — interactions (sobres)
+   Ciel en Couleurs - interactions (sobres)
    ============================================================ */
 (function () {
   "use strict";
@@ -57,7 +57,7 @@
 
   /* --- Social proof : comptage animé des chiffres -----------
      Déclenché quand le chiffre entre dans la vue (au scroll de l'utilisateur), donc joué
-     même en « prefers-reduced-motion » — au même titre que le pêle-mêle. */
+     même en « prefers-reduced-motion » - au même titre que le pêle-mêle. */
   const counters = document.querySelectorAll(".socialproof__num[data-count]");
   const animateCount = (el) => {
     const target = parseInt(el.dataset.count, 10) || 0;
@@ -163,7 +163,7 @@
       const num = (v) => parseFloat(cs.getPropertyValue(v)) || 0;
       return { el, dx: num("--dx"), dy: num("--dy"), rot: num("--rot"), ox: num("--ox"), oy: num("--oy"), rot0: num("--rot0") };
     });
-    // Mobile (portrait) : arrangement VERTICAL en colonne 2×4 — les photos montent
+    // Mobile (portrait) : arrangement VERTICAL en colonne 2×4 - les photos montent
     // plutôt que de s'étaler horizontalement (où elles seraient coupées sur les côtés).
     // Ordre = ordre des .polaroid dans le HTML.
     const MOBILE = [

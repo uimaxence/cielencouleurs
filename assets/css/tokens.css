@@ -1,5 +1,5 @@
 /* ============================================================
-   Ciel en Couleurs — Design tokens
+   Ciel en Couleurs - Design tokens
    Concept « Écrin & prisme ». Toute la DA se règle ici.
    ============================================================ */
 
@@ -18,7 +18,7 @@
   --c-line:      rgba(33, 28, 30, .12);
   --c-line-soft: rgba(33, 28, 30, .07);
 
-  /* Le prisme — dégradé spectral signature, usage parcimonieux */
+  /* Le prisme - dégradé spectral signature, usage parcimonieux */
   --prisme: linear-gradient(
     90deg,
     #E85D9A 0%, #F2A65A 22%, #F2D64B 42%,

@@ -1,5 +1,5 @@
 /* ============================================================
-   Ciel en Couleurs — Home page
+   Ciel en Couleurs - Home page
    ============================================================ */
 
 /* ---------- NAV (transparente sur le hero, ivoire au scroll) -------- */
@@ -444,7 +444,7 @@
   box-shadow: 0 26px 50px -20px rgba(33,28,30,.45), 0 3px 10px rgba(33,28,30,.13);
   transform-origin: center;
   /* Position par défaut (empilé) ; le déploiement est calculé en JS pour une
-     compatibilité totale (Safari inclus) — voir applyP() dans main.js. */
+     compatibilité totale (Safari inclus) - voir applyP() dans main.js. */
   transform: translate(-50%, -50%);
   transition: box-shadow .4s var(--ease);
   will-change: transform;
@@ -587,7 +587,7 @@
   list-style: none; display: flex; gap: .6em; align-items: baseline;
   font-size: .92rem; color: var(--c-encre-70);
 }
-.contact__reassure li::before { content: "—"; color: var(--c-rose-fane); }
+.contact__reassure li::before { content: "•"; color: var(--c-rose-fane); font-size: .9em; }
 
 .form {
   background: #fff;
