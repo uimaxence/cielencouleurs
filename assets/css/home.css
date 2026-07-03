@@ -149,41 +149,61 @@
 }
 
 /* ---------- HERO ------------------------------------------- */
-.hero {
-  position: relative;
-  min-height: 100svh;
+/* .hero est plus haute que l'écran (desktop) ; .hero__pin reste collé (sticky) le temps
+   de ce surplus → le texte "suit" le scroll, puis se libère à la fin de la section.
+   Pas d'overflow sur .hero (casserait le sticky) : il est porté par .hero__pin. */
+.hero { position: relative; height: 100svh; }
+@media (min-width: 760px) { .hero { height: 132svh; } }
+
+.hero__pin {
+  position: sticky; top: 0;
+  height: 100svh;
   display: flex;
-  align-items: flex-end;
-  color: var(--c-ivoire);
+  align-items: flex-end;   /* mobile : texte en bas */
   overflow: hidden;
-}
-/* Média : photo réelle du burst de fumée colorée (couple à droite, ciel à gauche) */
-.hero__media {
-  position: absolute; inset: 0; z-index: -2;
-  /* Mobile : cadrage sur la droite pour garder le couple + la fumée dans le champ */
-  background: #e7d3cf url("../img/opt/hero.webp") 88% 40% / cover no-repeat;
-  transform: scale(1.03);
-  animation: drift 30s var(--ease) infinite alternate;
+  color: var(--c-ivoire);
 }
 @media (min-width: 760px) {
-  .hero__media { background-position: center 30%; }
+  .hero__pin { align-items: flex-start; }  /* desktop : texte en haut à gauche */
+}
+
+/* Média : cérémonie (ciel/paysage à gauche, étincelles + couple à droite) */
+.hero__media {
+  position: absolute; inset: 0; z-index: -2;
+  background: #cdd6dd url("../img/opt/test-hero.webp") 60% 52% / cover no-repeat;
+  transform: scale(1.03);
+  animation: drift 34s var(--ease) infinite alternate;
+}
+@media (min-width: 760px) {
+  .hero__media { background-position: center 46%; }
 }
 @keyframes drift {
-  to { transform: scale(1.1) translate3d(-1.2%, -1.2%, 0); }
+  to { transform: scale(1.09) translate3d(-1%, -1%, 0); }
 }
 @media (prefers-reduced-motion: reduce) {
   .hero__media { animation: none; }
 }
-/* Voiles : haut (lisibilité nav claire) + bas-gauche (lisibilité du texte) */
+/* Fondu très léger : image quasi intacte, voile discret en haut (nav) et au coin haut-gauche (texte) */
 .hero__scrim {
   position: absolute; inset: 0; z-index: -1;
   background:
-    linear-gradient(180deg, rgba(33,28,30,.34) 0%, rgba(33,28,30,.05) 22%, transparent 40%),
-    linear-gradient(15deg, rgba(33,28,30,.62) 0%, rgba(33,28,30,.18) 42%, transparent 68%);
+    linear-gradient(180deg, rgba(28,32,38,.30) 0%, rgba(28,32,38,.06) 16%, transparent 30%),
+    radial-gradient(135% 100% at 0% 0%, rgba(28,32,38,.42) 0%, rgba(28,32,38,.12) 30%, transparent 55%);
 }
-.hero__content { padding-bottom: clamp(3rem, 8vh, 6rem); padding-top: 8rem; }
-.hero .eyebrow { color: rgba(251, 248, 244, .92); }
-.hero h1 { max-width: 15ch; margin-block: .35em .1em; text-shadow: 0 2px 40px rgba(33,28,30,.4); }
+/* Contenu : marges confortables pour ne pas coller au bord de l'image */
+.hero__content {
+  padding-bottom: clamp(3rem, 8vh, 6rem);   /* mobile (bas) */
+  padding-top: 7.5rem;
+  transition: opacity .25s linear;
+}
+@media (min-width: 760px) {
+  .hero__content {
+    padding-top: clamp(8.5rem, 17vh, 13rem); /* desktop : sous la nav, en haut */
+    padding-bottom: 0;
+  }
+}
+.hero .eyebrow { color: rgba(251, 248, 244, .95); }
+.hero h1 { max-width: 15ch; margin-block: .35em .1em; text-shadow: 0 2px 40px rgba(28,32,38,.5); }
 .hero__actions {
   display: flex; flex-wrap: wrap; align-items: center; gap: 1rem;
   margin-top: 1.8rem;

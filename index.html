@@ -31,7 +31,7 @@
   <!-- Styles -->
   <link rel="stylesheet" href="assets/css/tokens.css" />
   <link rel="stylesheet" href="assets/css/base.css" />
-  <link rel="stylesheet" href="assets/css/home.css?v=6" />
+  <link rel="stylesheet" href="assets/css/home.css?v=7" />
 
   <!-- Schema.org : LocalBusiness -->
   <script type="application/ld+json">
@@ -89,20 +89,23 @@
   <main>
 
     <!-- ==================== HERO ==================== -->
+    <!-- .hero est plus haute que l'écran ; .hero__pin reste collé (sticky) le temps
+         de ce surplus → le texte "suit" le scroll, puis se libère à la fin de la section. -->
     <section class="hero" aria-label="Introduction">
-      <!-- Placeholder DA : à remplacer par vidéo/photo de burst de fumée colorée -->
-      <div class="hero__media" aria-hidden="true"></div>
-      <div class="hero__scrim" aria-hidden="true"></div>
-      <div class="wrap hero__content">
-        <span class="eyebrow reveal">Fumées colorées de jour · Île-de-France</span>
-        <h1 class="display-1 reveal" data-delay="80">
-          L'art de colorer<br />vos émotions <span class="ital">en plein jour</span>
-        </h1>
-        <div class="hero__actions reveal" data-delay="160">
-          <a class="btn" href="#contact">Demander un devis</a>
-          <span class="hero__price">À partir de <b>590 €</b></span>
+      <div class="hero__pin">
+        <div class="hero__media" aria-hidden="true"></div>
+        <div class="hero__scrim" aria-hidden="true"></div>
+        <div class="wrap hero__content" data-hero-content>
+          <span class="eyebrow reveal">Fumées colorées de jour · Île-de-France</span>
+          <h1 class="display-1 reveal" data-delay="80">
+            L'art de colorer<br />vos émotions <span class="ital">en plein jour</span>
+          </h1>
+          <div class="hero__actions reveal" data-delay="160">
+            <a class="btn" href="#contact">Demander un devis</a>
+            <span class="hero__price">À partir de <b>590 €</b></span>
+          </div>
+          <hr class="prisme-line reveal" data-delay="240" aria-hidden="true" />
         </div>
-        <hr class="prisme-line reveal" data-delay="240" aria-hidden="true" />
       </div>
     </section>
 
@@ -441,6 +444,6 @@
     </figure>
   </div>
 
-  <script src="assets/js/main.js?v=4" defer></script>
+  <script src="assets/js/main.js?v=5" defer></script>
 </body>
 </html>

@@ -130,6 +130,30 @@
     if (grid) grid.addEventListener("mouseleave", () => occSection.classList.remove("is-hovering"));
   }
 
+  /* --- Hero : léger fondu + translation du texte pendant le "suivi" sticky ---
+     Actif seulement quand la section a un surplus de hauteur (desktop) ; sur mobile
+     (hero = 100svh, pas de surplus) le texte scrolle normalement. */
+  const heroSection = document.querySelector(".hero");
+  const heroContent = document.querySelector("[data-hero-content]");
+  if (heroSection && heroContent) {
+    let hticking = false;
+    const heroUpdate = () => {
+      hticking = false;
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+      const travel = heroSection.offsetHeight - vh; // surplus tenu par le sticky
+      if (travel < 40) { heroContent.style.opacity = ""; heroContent.style.transform = ""; return; }
+      const rect = heroSection.getBoundingClientRect();
+      const prog = Math.min(1, Math.max(0, -rect.top / travel)); // 0 (haut) → 1 (fin de section)
+      const f = Math.max(0, (prog - 0.45) / 0.55);               // fondu sur la dernière portion
+      heroContent.style.opacity = (1 - f * 0.9).toFixed(3);
+      heroContent.style.transform = "translateY(" + (-f * 26).toFixed(1) + "px)";
+    };
+    const onHeroScroll = () => { if (!hticking) { hticking = true; requestAnimationFrame(heroUpdate); } };
+    window.addEventListener("scroll", onHeroScroll, { passive: true });
+    window.addEventListener("resize", onHeroScroll, { passive: true });
+    heroUpdate();
+  }
+
   /* --- Pêle-mêle : déploiement des photos piloté au scroll ---
      Positions calculées en JS (et non en calc() CSS) pour marcher partout, Safari inclus. */
   const pele = document.querySelector("[data-pelemele]");
