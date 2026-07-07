@@ -22,7 +22,78 @@
   <link rel="stylesheet" href="assets/css/tokens.css" />
   <link rel="stylesheet" href="assets/css/base.css" />
   <link rel="stylesheet" href="assets/css/home.css?v=12" />
-  <link rel="stylesheet" href="assets/css/pages.css?v=6" />
+  <link rel="stylesheet" href="assets/css/pages.css?v=7" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "serviceType": "Fumigène de jour pour gender reveal",
+    "name": "Fumigène gender reveal · Ciel en Couleurs",
+    "description": "Fumigène coloré rose ou bleu (T1/CE) pour gender reveal : jet à 20-25 m, sans flamme ni déclaration, dès 590 €.",
+    "url": "https://cielencouleurs.fr/gender-reveal.html",
+    "provider": {
+      "@type": "LocalBusiness",
+      "name": "Ciel en Couleurs",
+      "url": "https://cielencouleurs.fr",
+      "parentOrganization": {
+        "@type": "Organization",
+        "name": "Madame Planner"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Montmagny",
+        "postalCode": "95360",
+        "addressRegion": "Val-d'Oise",
+        "addressCountry": "FR"
+      }
+    },
+    "areaServed": [
+      "Île-de-France",
+      "Val-d'Oise",
+      "Paris"
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Comment garder la surprise ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "C'est notre rôle. Nous venons avec les deux couleurs et vous nous remettez simplement l'enveloppe donnée lors de votre échographie : nous préparons la bonne teinte en toute discrétion. La surprise est gardée jusqu'au dernier moment."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Ça se fait en intérieur ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "L'effet est prévu pour l'extérieur (jardin, terrasse, domaine). L'opérateur valide le lieu en amont."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Sans danger pour les enfants et animaux ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Oui : pas de flamme ni de projection, périmètre géré par l'opérateur."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Quel budget ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "À partir de 590 €. Le tarif varie selon l'effet souhaité (couleur, option Blink, mise en scène) et le nombre d'artifices. Devis gratuit et sur-mesure."
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
 
@@ -43,6 +114,7 @@
                 <ul class="megamenu__links">
                   <li><a href="mariage.html" class="is-active" data-img="assets/img/opt/mariage-ceremonie.webp" data-cap="Mariage"><b>Mariage</b><span>Entrée, cérémonie et sortie en couleurs</span></a></li>
                   <li><a href="gender-reveal.html" data-img="assets/img/opt/gender-girl.webp" data-cap="Gender reveal"><b>Gender reveal</b><span>Rose ou bleu, la révélation grandeur nature</span></a></li>
+                  <li><a href="etincelles.html" data-img="assets/img/opt/etincelles-mariage.webp" data-cap="Étincelles froides"><b>Étincelles froides</b><span>Fontaines lumineuses, intérieur comme extérieur</span></a></li>
                   <li><a href="anniversaire.html" data-img="assets/img/opt/mariage-rougevert.webp" data-cap="Anniversaire"><b>Anniversaire &amp; baptême</b><span>Toutes vos grandes occasions</span></a></li>
                   <li><a href="evenement-pro.html" data-img="assets/img/opt/pro-stade.webp" data-cap="Événement pro"><b>Événement pro</b><span>Marques, lieux de réception, séminaires</span></a></li>
                 </ul>
@@ -67,11 +139,13 @@
       <a href="index.html">Accueil</a>
       <a href="mariage.html">Mariage</a>
       <a href="gender-reveal.html">Gender reveal</a>
+      <a href="etincelles.html">Étincelles froides</a>
       <a href="anniversaire.html">Anniversaire &amp; baptême</a>
       <a href="evenement-pro.html">Événement pro</a>
       <a href="realisations.html">Réalisations</a>
       <a href="securite.html">Sécurité</a>
       <a href="contact.html">Contact</a>
+      <a href="index.html#agence">Notre agence</a>
       <a class="btn" href="contact.html">Demander un devis</a>
     </div>
   </header>
@@ -96,7 +170,9 @@
           <h2 class="display-2">La révélation en grand</h2>
           <div class="prose" style="margin-top:1.2rem"><p>Fini le simple ballon : un <b>fumigène coloré T1/CE</b> qui monte à 20-25 mètres et transforme l'annonce en moment spectaculaire, immortalisé en photo et en vidéo.</p><p>Rose intense ou bleu profond, l'effet est déclenché par un opérateur formé, sans flamme, sans retombée, sans déclaration administrative.</p></div>
         </div>
-        <div class="split__media is-portrait reveal" data-delay="120" style="background-image:url('assets/img/opt/gender-boy.webp')"></div>
+        <figure class="videocard is-portrait reveal" data-delay="120" style="width:100%">
+          <video src="assets/img/opt/gender-reveal.mp4" poster="assets/img/opt/gender-reveal-poster.webp" autoplay muted loop playsinline preload="metadata" aria-label="Gender reveal en vidéo : jet de fumée rose et bleue"></video>
+        </figure>
       </div>
     </section>
 
@@ -114,10 +190,25 @@
       </div>
     </section>
 
+    <!-- ==================== DÉCO / MISE EN SCÈNE ==================== -->
+    <section class="section">
+      <div class="wrap split split--wide-left">
+        <div class="reveal">
+          <p class="eyebrow">La déco aussi</p>
+          <h2 class="display-2">On habille tout l'événement</h2>
+          <div class="prose" style="margin-top:1.2rem"><p>Ne cherchez pas ailleurs : en tant qu'agence événementielle, <b>Madame Planner</b> imagine aussi votre décor. Arche de ballons rose &amp; bleu, table de révélation, scénographie et accessoires photo — tout est coordonné pour un moment cohérent, de la déco au jet de couleur.</p></div>
+          <a class="link-arrow" href="contact.html">Ajouter la déco à ma demande
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+        <div class="split__media reveal" data-delay="120" style="background-image:url('assets/img/opt/gender-rose-2.webp')"></div>
+      </div>
+    </section>
+
     <section class="section bg-ivoire">
       <div class="wrap">
         <div class="sec-head reveal"><p class="eyebrow">Questions fréquentes</p><h2 class="display-2">Le fumigène gender reveal en clair</h2></div>
-<div class="faq"><details class="reveal"><summary>Comment garder la surprise ?</summary><p>Nous coordonnons la couleur en toute discrétion avec la personne de votre choix : les futurs parents découvrent en même temps que les invités.</p></details><details class="reveal"><summary>Ça se fait en intérieur ?</summary><p>L'effet est prévu pour l'extérieur (jardin, terrasse, domaine). L'opérateur valide le lieu en amont.</p></details><details class="reveal"><summary>Sans danger pour les enfants et animaux ?</summary><p>Oui : pas de flamme ni de projection, périmètre géré par l'opérateur.</p></details><details class="reveal"><summary>Quel budget ?</summary><p>À partir de 590 €. Devis précis selon le lieu et la mise en scène.</p></details></div>
+<div class="faq"><details class="reveal"><summary>Comment garder la surprise ?</summary><p>C'est notre rôle. Nous venons avec les deux couleurs et vous nous remettez simplement l'enveloppe donnée lors de votre échographie : nous préparons la bonne teinte en toute discrétion. La surprise est gardée jusqu'au dernier moment — même les futurs parents découvrent en même temps que leurs invités.</p></details><details class="reveal"><summary>Ça se fait en intérieur ?</summary><p>L'effet est prévu pour l'extérieur (jardin, terrasse, domaine). L'opérateur valide le lieu en amont.</p></details><details class="reveal"><summary>Sans danger pour les enfants et animaux ?</summary><p>Oui : pas de flamme ni de projection, périmètre géré par l'opérateur.</p></details><details class="reveal"><summary>Quel budget ?</summary><p>À partir de 590 €. Le tarif varie selon l'effet souhaité (couleur, option Blink, mise en scène) et le nombre d'artifices. Devis gratuit et sur-mesure.</p></details></div>
       </div>
     </section>
 
@@ -137,6 +228,7 @@
           <ul>
             <li><a href="mariage.html">Mariage</a></li>
             <li><a href="gender-reveal.html">Gender reveal</a></li>
+            <li><a href="etincelles.html">Étincelles froides</a></li>
             <li><a href="anniversaire.html">Anniversaire &amp; baptême</a></li>
             <li><a href="evenement-pro.html">Événement pro</a></li>
           </ul>
@@ -147,6 +239,7 @@
             <li><a href="realisations.html">Réalisations</a></li>
             <li><a href="securite.html">Sécurité &amp; cadre</a></li>
             <li><a href="zones.html">Zones d'intervention</a></li>
+            <li><a href="index.html#agence">Notre agence</a></li>
             <li><a href="contact.html">Contact</a></li>
           </ul>
         </div>

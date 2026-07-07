@@ -345,7 +345,7 @@
 /* Photos par occasion */
 .occ--mariage { --occ-img: url("../img/opt/mariage-rainbow.webp"); }
 .occ--gender  { --occ-img: url("../img/opt/gender-girl.webp"); }
-.occ--anniv   { --occ-img: url("../img/opt/mariage-rougevert.webp"); }
+.occ--anniv   { --occ-img: url("../img/opt/effet-blink.webp"); }
 .occ--pro     { --occ-img: url("../img/opt/pro-stade.webp"); }
 .occ--gender .occ__media { background-position: center 30%; }
 
