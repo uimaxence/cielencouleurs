@@ -326,3 +326,30 @@
 .agence__card img { width: min(300px, 78%); height: auto; }
 .agence h2 { margin-bottom: .8rem; }
 .agence .prose { margin-bottom: 1.5rem; }
+
+/* ---------- Bloc « appelez-nous » (contact & formulaire) ---- */
+.phone-cta {
+  display: flex; align-items: center; gap: 1rem;
+  margin-top: 1.6rem; padding: .95rem 1.2rem;
+  border: 1px solid var(--c-line); border-radius: 18px;
+  background: var(--c-ivoire); text-decoration: none; color: var(--c-encre);
+  transition: box-shadow .25s var(--ease), transform .25s var(--ease), border-color .25s var(--ease);
+}
+.phone-cta:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); border-color: var(--c-rose-fane); }
+.phone-cta__icon {
+  flex: none; width: 46px; height: 46px; border-radius: 50%;
+  display: grid; place-items: center; color: #fff;
+  background: linear-gradient(135deg, var(--c-rose-fane), var(--c-rose-fane-dark));
+}
+.phone-cta__eyebrow {
+  display: block; font-size: .72rem; text-transform: uppercase;
+  letter-spacing: .14em; color: var(--c-encre-70);
+}
+.phone-cta__num {
+  display: block; font-family: var(--font-display); font-weight: 460;
+  font-size: 1.5rem; line-height: 1.1; color: var(--c-encre);
+}
+.form__or {
+  margin-top: 1rem; text-align: center; font-size: .95rem; color: var(--c-encre-70);
+}
+.form__or a { color: var(--c-rose-fane-dark); font-weight: 600; white-space: nowrap; }
