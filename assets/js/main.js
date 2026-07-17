@@ -95,15 +95,11 @@
     }
   }
 
-  /* --- Formulaire : état de succès (démo, pas de backend) --- */
+  /* --- Formulaire : envoi via Web3Forms (AJAX) --- */
   const form = document.querySelector(".form");
-  if (form) {
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      if (!form.checkValidity()) {
-        form.reportValidity();
-        return;
-      }
+  const formEl = form && form.querySelector("form");
+  if (form && formEl) {
+    const showSuccess = () => {
       form.classList.add("is-sent");
       const success = form.querySelector(".form__success");
       if (success) {
@@ -112,7 +108,46 @@
         success.focus({ preventScroll: false });
         success.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "center" });
       }
-      // TODO(intégration) : POST vers backend + notification email + attribution.
+    };
+    const showError = (msg) => {
+      let err = formEl.querySelector(".form__error");
+      if (!err) {
+        err = document.createElement("p");
+        err.className = "form__error";
+        err.setAttribute("role", "alert");
+        err.style.cssText = "color:#b3261e;margin-top:.75rem;font-weight:600";
+        const submit = formEl.querySelector(".form__submit");
+        (submit || formEl).appendChild(err);
+      }
+      err.textContent = msg;
+    };
+
+    formEl.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      if (!formEl.checkValidity()) {
+        formEl.reportValidity();
+        return;
+      }
+      const btn = formEl.querySelector('button[type="submit"]');
+      const prevLabel = btn ? btn.textContent : "";
+      if (btn) { btn.disabled = true; btn.textContent = "Envoi…"; }
+
+      try {
+        const res = await fetch(formEl.action, {
+          method: "POST",
+          headers: { Accept: "application/json" },
+          body: new FormData(formEl),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (res.ok && data.success) {
+          showSuccess();
+        } else {
+          throw new Error(data.message || "Échec de l'envoi");
+        }
+      } catch (err) {
+        if (btn) { btn.disabled = false; btn.textContent = prevLabel; }
+        showError("Oups, l'envoi n'a pas fonctionné. Réessayez, ou appelez-nous au 07 67 46 57 57.");
+      }
     });
   }
 

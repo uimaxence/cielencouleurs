@@ -112,7 +112,13 @@
             <div class="contact__visual" aria-hidden="true"></div>
           </aside>
           <div class="form reveal" data-delay="80">
-            <form class="form__body" novalidate>
+            <form class="form__body" action="https://api.web3forms.com/submit" method="POST" novalidate>
+              <!-- Web3Forms : remplacez la valeur ci-dessous par votre clé d'accès (gratuite sur https://web3forms.com) -->
+              <input type="hidden" name="access_key" value="62d79ee1-d19e-4018-b46c-35b1cfb75c6e" />
+              <input type="hidden" name="subject" value="Nouvelle demande de devis — Ciel en Couleurs" />
+              <input type="hidden" name="from_name" value="Site Ciel en Couleurs" />
+              <!-- Anti-spam (honeypot) : doit rester vide -->
+              <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display:none !important" aria-hidden="true" />
               <div class="form__row cols-2">
                 <div class="field"><label for="prenom">Prénom <span class="req">*</span></label><input id="prenom" name="prenom" type="text" autocomplete="given-name" required /></div>
                 <div class="field"><label for="nom">Nom <span class="req">*</span></label><input id="nom" name="nom" type="text" autocomplete="family-name" required /></div>
@@ -188,6 +194,6 @@
     </div>
   </footer>
 
-  <script src="assets/js/main.js?v=8" defer></script>
+  <script src="assets/js/main.js?v=9" defer></script>
 </body>
 </html>
