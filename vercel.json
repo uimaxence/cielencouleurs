@@ -1,0 +1,11 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    { "source": "/mentions-légales", "destination": "/mentions-legales.html", "permanent": true },
+    { "source": "/mentions-l%C3%A9gales", "destination": "/mentions-legales.html", "permanent": true },
+    { "source": "/politique-de-confidentialité", "destination": "/confidentialite.html", "permanent": true },
+    { "source": "/politique-de-confidentialit%C3%A9", "destination": "/confidentialite.html", "permanent": true },
+    { "source": "/politique-en-matière-de-cookies", "destination": "/confidentialite.html", "permanent": true },
+    { "source": "/politique-en-mati%C3%A8re-de-cookies", "destination": "/confidentialite.html", "permanent": true }
+  ]
+}

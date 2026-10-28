@@ -8,3 +8,6 @@ Thumbs.db
 
 # Documents markdown (brief, notes, README)
 *.md
+
+# Exports Search Console / données SEO (hors repo)
+export SEO/
